@@ -1,0 +1,30 @@
+
+import requests
+api_key = "efe10322-4a41-4561-ac78-a873e087502d"
+
+chat_session = requests.post(
+    'https://agentivehub.com/api/chat/session',
+    json = {
+        "api_key" : "api_key",
+        "assistant_id" : "e1757e7e-d342-4769-827a-ba9ac155aa29",    
+    }
+)
+
+# Get the chat session ID
+chat_session_id = chat_session.json()["session_id"]
+   
+# Send a message to the chat session
+chat_response = {
+    "api_key" : api_key,
+    "session_id" : chat_session_id,
+    "type" : "custom_code",
+    "assistant_id" : "e1757e7e-d342-4769-827a-ba9ac155aa29",
+    "messages" : [{"role": "user", "content": "Say Hello!"}]
+}
+
+req = requests.post(
+    'https://agentivehub.com/api/chat',
+    json = chat_response
+)
+resp = req.json()
+    
